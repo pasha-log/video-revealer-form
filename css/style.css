@@ -1,0 +1,216 @@
+/* body > div.pageContent > div.innerContent.py-md-5.py-3 > div {
+	margin-left: 0 !important;
+	margin-right: 0 !important;
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+} */
+
+body > div.pageContent > div.innerContent.py-md-5.py-3 {
+	max-width: 100%;
+	margin-bottom: 0 !important;
+	padding-bottom: 0 !important;
+	/* margin: 0 !important;
+	padding: 0 !important; */
+}
+
+/* Video Revealer Form */
+
+#video-revealer-greeting p,
+#video-revealer-form > p,
+#video-revealer-greeting h1 {
+	text-align: center;
+}
+
+.disclaimer {
+	font-size: .75rem;
+}
+
+#video-revealer-greeting p,
+#video-revealer-form > p {
+	margin-left: 1rem;
+	margin-right: 1rem;
+}
+
+#video-revealer-greeting h1 {
+	font-size: 1.5rem;
+}
+
+#consent-container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding-left: 1rem;
+	padding-right: 1rem;
+}
+
+.checkbox-and-label {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+#consent-checkbox {
+	margin-right: .5rem;
+	width: 2rem;
+	height: 2rem;
+}
+
+.video-revealer-submit {
+	padding: 12px 20px;
+	border: none;
+	background: #fab03a;
+	font-size: 1.25rem;
+	border-radius: 50px;
+	text-transform: uppercase;
+	font-weight: 600;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 121.1px;
+	height: 56px;
+}
+
+.video-revealer-submit:hover {
+	background: black;
+}
+
+form#video-revealer-form {
+	border: 1px solid black;
+	border-radius: 5px;
+}
+
+#video-revealer-form {
+	padding: 2rem 1rem 2rem 1rem !important;
+}
+
+#video-revealer-greeting,
+#video-container,
+form#video-revealer-form {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+}
+
+#video-revealer-greeting {
+	color: black;
+}
+
+#video-revealer-greeting p {
+	font-weight: 600;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="submit"] {
+	border: 1px solid #e0e0e0;
+	border-radius: 5px;
+	width: 100%;
+	margin: 1rem 0rem 1rem 0rem !important;
+}
+
+#form-error-message,
+.error-message {
+	color: red;
+}
+
+/* H4P Unlocked Section */
+
+.h4p-unlocked-section {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+}
+
+.h4p-unlocked-main-content {
+	text-align: center;
+}
+
+.h4p-unlocked-main-content > div {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.h4p-unlocked-section h1 {
+	font-size: 2.5rem;
+}
+
+.h4p-unlocked-section h2 {
+	font-size: 2rem;
+}
+
+.h4p-unlocked-section div.h4p-unlocked-section-share p {
+	font-size: 1rem;
+}
+
+.h4p-unlocked-section div.h4p-unlocked-section-share p {
+	text-align: center;
+}
+
+.h4p-unlocked-section-share span {
+	font-weight: 700;
+}
+
+.h4p-unlocked-section div {
+	padding: 0rem;
+}
+
+.h4p-unlocked-main-content {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-direction: row;
+}
+
+.h4p-unlocked-section > div,
+.h4p-unlocked-image {
+	flex-basis: 50%;
+}
+
+.h4p-unlocked-image {
+	/* background-image: url('https://signetmortgage.com/wp-content/uploads/2024/07/senior-woman-with-plants.webp'); */
+	background-image: url('https://signetmortgage.com/wp-content/uploads/2024/07/senior-woman-with-plants-1-1.webp');
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 100%;
+	height: 100vh;
+}
+
+.btn.btn-warning.sg-popup-id-1547,
+.btn.btn-warning.sg-popup-id-1547:hover {
+	color: white;
+	cursor: pointer;
+}
+
+@media screen and (width < 1025px) {
+	.h4p-unlocked-section {
+		flex-direction: column;
+		justify-content: center;
+	}
+
+	.h4p-unlocked-section h1 {
+		font-size: 1.75rem;
+	}
+
+	.h4p-unlocked-section h2 {
+		font-size: 1rem;
+	}
+
+	.h4p-unlocked-section div {
+		padding: 1rem 1rem .25rem 1rem;
+	}
+
+	.h4p-unlocked-section > div,
+	.h4p-unlocked-image {
+		flex-basis: initial;
+	}
+
+	.h4p-unlocked-image {
+		height: 50vh;
+	}
+}
