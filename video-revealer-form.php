@@ -6,6 +6,9 @@ Version: 1.0
 Author: Pasha Loguinov
 */
 
+/**
+ * Create the video_revealer_submissions table.
+ */
 function video_revealer_create_table() {
     global $wpdb;
     $table_name = $wpdb->prefix . 'video_revealer_submissions';
@@ -27,6 +30,12 @@ function video_revealer_create_table() {
 
 register_activation_hook(__FILE__, 'video_revealer_create_table');
 
+/**
+ * Encrypt data using AES-256-CBC.
+ *
+ * @param string $data Data to encrypt.
+ * @return string Encrypted data.
+ */
 function encrypt_data($data) {
     $encryption_key = base64_decode(ENCRYPTION_KEY);
     $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-256-cbc'));
@@ -34,17 +43,33 @@ function encrypt_data($data) {
     return base64_encode($encrypted . '::' . $iv);
 }
 
+/**
+ * Decrypt data using AES-256-CBC.
+ *
+ * @param string $data Data to decrypt.
+ * @return string Decrypted data.
+ */
 function decrypt_data($data) {
     $encryption_key = base64_decode(ENCRYPTION_KEY);
     list($encrypted_data, $iv) = array_pad(explode('::', base64_decode($data), 2), 2, null);
     return openssl_decrypt($encrypted_data, 'aes-256-cbc', $encryption_key, 0, $iv);
 }
 
+/**
+ * Update the YouTube URL option.
+ *
+ * @param string $url YouTube URL to update.
+ */
 function update_youtube_url($url) {
     $sanitized_url = esc_url($url);
     update_option('my_youtube_video_url', $sanitized_url);
 }
 
+/**
+ * Get the YouTube URL option.
+ *
+ * @return string YouTube URL.
+ */
 function get_youtube_url() {
     $youtube_url = get_option('my_youtube_video_url', '');
     
@@ -59,6 +84,9 @@ function get_youtube_url() {
     return $youtube_url;
 }
 
+/**
+ * Register the video_revealer_form shortcode.
+ */
 function video_revealer_form_shortcode() {
     ob_start();
 
@@ -107,6 +135,9 @@ add_shortcode('video_revealer_form', 'video_revealer_form_shortcode');
 add_action('wp_ajax_video_revealer_form_submit', 'handle_video_revealer_form_submission');
 add_action('wp_ajax_nopriv_video_revealer_form_submit', 'handle_video_revealer_form_submission'); 
 
+/**
+ * Handle the video_revealer_form_submit action.
+ */
 function handle_video_revealer_form_submission() {
     if (isset($_POST['action']) && $_POST['action'] == 'video_revealer_form_submit') {
         header('Content-Type: application/json');
@@ -210,6 +241,9 @@ function video_revealer_admin_menu() {
 }
 add_action('admin_menu', 'video_revealer_admin_menu');
 
+/**
+ * Create the video_revealer_submissions_page.
+ */
 function video_revealer_submissions_page() {
     global $wpdb; 
     $table_name = $wpdb->prefix . 'video_revealer_submissions';
@@ -276,6 +310,9 @@ function video_revealer_submissions_page() {
     <?php endif;
 }
 
+/**
+ * Handle the delete_submission action.
+ */
 function handle_delete_submission() {
     global $wpdb; 
     $table_name = $wpdb->prefix . 'video_revealer_submissions';
@@ -295,6 +332,9 @@ add_action('wp_head', function() {
     echo '<script type="text/javascript">var ajaxurl = "' . admin_url('admin-ajax.php') . '";</script>';
 });
 
+/**
+ * Enqueue scripts and styles.
+ */
 function enqueue_scripts_and_styles() {
     wp_enqueue_script('jquery');
 

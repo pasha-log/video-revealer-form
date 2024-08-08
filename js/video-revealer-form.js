@@ -1,3 +1,7 @@
+/**
+ * Video Revealer Form
+ */
+
 $videoRevealerSubmit = $('.video-revealer-submit');
 $spinner = $('.spinner-border');
 $form = $('#video-revealer-form');

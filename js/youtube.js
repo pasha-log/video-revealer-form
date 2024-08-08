@@ -1,3 +1,7 @@
+/**
+ * YouTube API
+ */
+
 var youTubePlayer;
 
 function onYouTubeIframeAPIReady() {
