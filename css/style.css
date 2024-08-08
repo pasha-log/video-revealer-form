@@ -1,16 +1,7 @@
-/* body > div.pageContent > div.innerContent.py-md-5.py-3 > div {
-	margin-left: 0 !important;
-	margin-right: 0 !important;
-	padding-left: 0 !important;
-	padding-right: 0 !important;
-} */
-
 body > div.pageContent > div.innerContent.py-md-5.py-3 {
 	max-width: 100%;
 	margin-bottom: 0 !important;
 	padding-bottom: 0 !important;
-	/* margin: 0 !important;
-	padding: 0 !important; */
 }
 
 /* Video Revealer Form */
@@ -56,7 +47,39 @@ body > div.pageContent > div.innerContent.py-md-5.py-3 {
 	height: 2rem;
 }
 
-.video-revealer-submit {
+#finished-video-button-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: row;
+	margin-top: 2rem;
+}
+
+#schedule-conversation,
+#realtors {
+	text-align: center;
+	width: 235.76px !important;
+	height: 44.4px !important;
+	font-size: 0.875rem !important;
+	padding: 11px 10px !important;
+	margin: .5rem !important;
+}
+
+@media screen and (width > 1024px) {
+	#youtube-video {
+		width: 820px !important;
+		height: 461px !important;
+	}
+
+	#schedule-conversation,
+	#realtors {
+		width: 400px !important;
+	}
+}
+
+.video-revealer-submit,
+#schedule-conversation,
+#realtors {
 	padding: 12px 20px;
 	border: none;
 	background: #fab03a;
@@ -72,7 +95,9 @@ body > div.pageContent > div.innerContent.py-md-5.py-3 {
 	height: 56px;
 }
 
-.video-revealer-submit:hover {
+.video-revealer-submit:hover,
+#schedule-conversation:hover,
+#realtors:hover {
 	background: black;
 }
 
@@ -124,31 +149,24 @@ input[type="submit"] {
 	flex-direction: column;
 }
 
-.h4p-unlocked-main-content {
-	text-align: center;
-}
-
 .h4p-unlocked-main-content > div {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
 }
 
 .h4p-unlocked-section h1 {
-	font-size: 2.5rem;
+	font-size: 4rem;
+	text-align: center;
 }
 
 .h4p-unlocked-section h2 {
 	font-size: 2rem;
 }
 
-.h4p-unlocked-section div.h4p-unlocked-section-share p {
-	font-size: 1rem;
-}
-
-.h4p-unlocked-section div.h4p-unlocked-section-share p {
-	text-align: center;
+.h4p-unlocked-section ul.h4p-unlocked-section-share li {
+	font-size: 1.25rem;
+	text-align: left;
+	margin-right: 1rem;
 }
 
 .h4p-unlocked-section-share span {
@@ -161,19 +179,18 @@ input[type="submit"] {
 
 .h4p-unlocked-main-content {
 	display: flex;
-	align-items: center;
+	/* align-items: center; */
 	justify-content: space-between;
 	flex-direction: row;
+	text-align: left;
+	align-items: flex-start;
+	margin-bottom: 1rem;
+	margin-top: 1rem;
 }
 
-.h4p-unlocked-section > div,
 .h4p-unlocked-image {
-	flex-basis: 50%;
-}
-
-.h4p-unlocked-image {
-	/* background-image: url('https://signetmortgage.com/wp-content/uploads/2024/07/senior-woman-with-plants.webp'); */
-	background-image: url('https://signetmortgage.com/wp-content/uploads/2024/07/senior-woman-with-plants-1-1.webp');
+	/* background-image: url('https://signetmortgage.com/wp-content/uploads/2024/07/senior-woman-with-plants-1-1.webp'); */
+	background-image: url('https://signetmortgage.com/wp-content/uploads/2024/08/senior-woman-with-plants-1-1-smaller.webp');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -188,9 +205,31 @@ input[type="submit"] {
 }
 
 @media screen and (width < 1025px) {
+	#finished-video-button-container {
+		flex-direction: column !important;
+	}
+
+	.btn.btn-warning.sg-popup-id-1547,
+	.btn.btn-warning.sg-popup-id-1547:hover {
+		font-size: 1rem;
+	}
+
 	.h4p-unlocked-section {
 		flex-direction: column;
 		justify-content: center;
+	}
+
+	.h4p-unlocked-main-content {
+		flex-direction: column;
+	}
+
+	.h4p-unlocked-main-content > div {
+		align-items: center;
+		justify-content: center;
+	}
+
+	.h4p-unlocked-section ul.h4p-unlocked-section-share li {
+		margin-right: 0;
 	}
 
 	.h4p-unlocked-section h1 {
@@ -198,16 +237,12 @@ input[type="submit"] {
 	}
 
 	.h4p-unlocked-section h2 {
-		font-size: 1rem;
+		font-size: 1.5rem;
+		text-align: center;
 	}
 
 	.h4p-unlocked-section div {
 		padding: 1rem 1rem .25rem 1rem;
-	}
-
-	.h4p-unlocked-section > div,
-	.h4p-unlocked-image {
-		flex-basis: initial;
 	}
 
 	.h4p-unlocked-image {

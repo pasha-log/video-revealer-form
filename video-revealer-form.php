@@ -47,6 +47,15 @@ function update_youtube_url($url) {
 
 function get_youtube_url() {
     $youtube_url = get_option('my_youtube_video_url', '');
+    
+    preg_match('/(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/', $youtube_url, $matches);
+    
+    if (isset($matches[1])) {
+        $youtube_url = $matches[1];
+    } else {
+        $youtube_url = '';
+    }
+    
     return $youtube_url;
 }
 
@@ -68,11 +77,11 @@ function video_revealer_form_shortcode() {
     echo    '<div id="consent-container">
                 <div class="checkbox-and-label">
                     <input type="checkbox" id="consent-checkbox" name="consent-checkbox">
-                    <label for="consent-checkbox">By clicking this box, you are agreeing to RECEIVE phone calls and emails from the company.*</label>
+                    <label for="consent-checkbox">By clicking this box, you agree to receive communication (Calls, Emails & Text) from Signet Mortgage.*</label>
                 </div>
                 <span aria-live="polite" class="error-message"></span> 
             </div>
-            <p class="disclaimer">*Rest assured, your information will NEVER EVER be used for anything outside of us communicating with you. We pinky promise!</p>
+            <p class="disclaimer">*You can be 100% sure we will never ever sell your contact information.</p>
             <button class="video-revealer-submit" type="submit" name="submit_video_revealer_form">
                 <div class="spinner-border text-light" role="status" style="display:none;">
                     <span class="sr-only">Loading...</span>
@@ -83,8 +92,13 @@ function video_revealer_form_shortcode() {
           </form>';
 
     echo '<div id="video-container" style="display:none;">';
-    echo do_shortcode('[embed]'. get_youtube_url() .'[/embed]');
+    echo '<iframe id="youtube-video" width="560" height="315" src="https://www.youtube-nocookie.com/embed/' . get_youtube_url() . '?enablejsapi=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
     echo '</div>';
+
+    echo '<div id="finished-video-button-container" style="display:none;">
+            <a href="https://signetmortgage.com/schedule-a-conversation/" target="_blank" id="schedule-conversation">Schedule a Conversation</a>
+            <a href="https://signetmortgage.com/for-realtors/" target="_blank" id="realtors">Realtors</a>
+          </div>';
 
     return ob_get_clean();
 }
@@ -177,12 +191,12 @@ function handle_video_revealer_form_submission() {
 
         if (!empty($valid_emails)) {
             $to = $valid_emails;
-            $subject = 'New Video Revealer Submission';
+            $subject = 'Someone asked to view the H4P webinar video';
             $message = "Name: $name\nEmail: $email\nPhone: $phone\nCompany: $company";
             wp_mail($to, $subject, $message);
         } else {
             $to = 'pasha@ewebsiteservices.com';
-            $subject = 'New Video Revealer Submission';
+            $subject = 'Someone asked to view the H4P webinar video';
             $message = "Name: $name\nEmail: $email\nPhone: $phone\nCompany: $company\n\nNo valid email addresses were found in the notification emails list.";
             wp_mail($to, $subject, $message);
         }
@@ -294,22 +308,28 @@ function enqueue_scripts_and_styles() {
         });
         EOD;
         wp_add_inline_script('google-recaptcha', $inline_script);
+
+        wp_enqueue_script('video-revealer-form', plugins_url('/js/video-revealer-form.js', __FILE__), array('jquery'), '1.1', true);
+        wp_localize_script('video-revealer-form', 'ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
+
+        wp_enqueue_style('video-revealer-form', plugin_dir_url(__FILE__) . 'css/style.css', array(), '1.1.0', 'all');
     }
 
-    wp_enqueue_script('video-revealer-form', plugins_url('/js/video-revealer-form.js', __FILE__), array('jquery'), '1.0', true);
-    wp_localize_script('video-revealer-form', 'ajax_object', array('ajaxurl' => admin_url('admin-ajax.php')));
+}
+add_action('wp_enqueue_scripts', 'enqueue_scripts_and_styles');
 
+function enqueue_video_revealer_scripts() {
     if (is_page('realtors-h4p-invite')) {
-        wp_enqueue_style('video-revealer-form', plugin_dir_url(__FILE__) . 'css/style.css', array(), '1.0.0', 'all');
+        wp_enqueue_script('youtube-iframe-api', 'https://www.youtube.com/iframe_api', array(), null, true);
+
+        wp_enqueue_script('video-revealer', plugin_dir_url(__FILE__) . 'js/youtube.js', array('youtube-iframe-api'), '1.1', true);
     }
 }
-
-add_action('wp_enqueue_scripts', 'enqueue_scripts_and_styles');
+add_action('wp_enqueue_scripts', 'enqueue_video_revealer_scripts');
 
 function enqueue_admin_styles($hook_suffix) {
     if ($hook_suffix == 'toplevel_page_video-revealer-submissions') {
-        wp_enqueue_style('video-revealer-form', plugin_dir_url(__FILE__) . 'css/submissions-style.css');
+        wp_enqueue_style('video-revealer-form', plugin_dir_url(__FILE__) . 'css/submissions-style.css', array(), '1.0.0');
     }
 }
-
 add_action('admin_enqueue_scripts', 'enqueue_admin_styles');
